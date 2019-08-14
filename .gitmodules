@@ -1,0 +1,3 @@
+[submodule "lib/spiralmatrix"]
+	path = lib/spiralmatrix
+	url = https://github.com/Quoteme/spiralmatrix.git
