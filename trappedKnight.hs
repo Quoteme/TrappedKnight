@@ -1,6 +1,8 @@
 import SpiralMatrix
 import Data.List
 import Data.Maybe
+import System.Environment
+import Graphics.Gloss
 
 knightMoves = [
     [-1,-2],
@@ -11,7 +13,23 @@ knightMoves = [
     [-2, 1],
     [ 2,-1],
     [ 2, 1]]
+width   = 500
+height  = 500
+size    = [10,10]
 
+main = do
+    args <- getArgs
+    let depth = if length args == 0
+        then 3000
+        else read $ args!!0
+    display (InWindow "TrappedKnight" (width,height) (0,0)) white
+        (Line $ stepsToPath size $ repeatedStep [0,0] knightMoves depth )
+
+-- Converts the data returned by repeatedStep into a list of points
+stepsToPath [sx, sy] list = map (\v -> toPoint(fst v)) (snd list)
+    where toPoint [x,y] = (sx*x,sy*y)
+
+-- Position, Moveset, Number of Steps
 repeatedStep pos mov n = tmp n
     where
         tmp m
